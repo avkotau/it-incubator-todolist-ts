@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { FilterValuesType } from '../App';
+import React, { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
+import { FilterValuesType } from '../../App';
+import Button from "../Button/Button";
 
 type TaskType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
@@ -10,25 +11,27 @@ type TaskType = {
 type PropsType = {
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: number) => void
+    removeTask: (taskId: string) => void
     deleteAllTasks: () => void
+    addTask: (textInput: string) => void
 }
 
 export function Todolist(props: PropsType) {
-    const {title, tasks, deleteAllTasks, removeTask} = props
+    const {title, tasks, deleteAllTasks, removeTask, addTask} = props
+    const [inputText, setInputText] = useState('');
 
     let [filter, setFilter] = useState<FilterValuesType>("all");
 
     let tasksForTodolist = tasks;
 
     if (filter === "active") {
-        tasksForTodolist =  tasks.filter(t => t.isDone === false);
+        tasksForTodolist = tasks.filter(t => t.isDone === false);
     }
     if (filter === "completed") {
-        tasksForTodolist =  tasks.filter(t => t.isDone === true);
+        tasksForTodolist = tasks.filter(t => t.isDone === true);
     }
     if (filter === "first three tasks") {
-        tasksForTodolist =  tasks.filter((t,i) => i < 3);
+        tasksForTodolist = tasks.filter((t, i) => i < 3);
     }
 
     // filterTasks === 'All'
@@ -39,22 +42,41 @@ export function Todolist(props: PropsType) {
     //             ? props.tasks.filter(el => !el.isDone)
     //             : props.tasks
 
-    function changeFilter(value: FilterValuesType) {
-        setFilter(value);
+
+    const onChangeInputHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
+        setInputText(e.currentTarget.value);
+    }
+
+    const addTaskHandle = () => {
+        addTask(inputText)
+        setInputText('')
+    }
+    const onKeyPressInputHandler: KeyboardEventHandler<HTMLInputElement> = (e) => {
+        if (e.code === 'Enter') addTaskHandle()
+    }
+
+    const filterButtonsHandler = (filterValue: FilterValuesType) => {
+        setFilter(filterValue);
     }
 
     return <div>
         <h3>{title}</h3>
         <div>
-            <input/>
-            <button>+</button>
+            <input value={inputText}
+                   onChange={onChangeInputHandle}
+                   onKeyPress={onKeyPressInputHandler}
+            />
+            <Button callBackButton={addTaskHandle} name={'+'}/>
         </div>
         <ul>
             {
                 tasksForTodolist.map(t => <li key={t.id}>
                     <input type="checkbox" checked={t.isDone}/>
                     <span>{t.title}</span>
-                    <button onClick={() => { removeTask(t.id) }}>x </button>
+                    <button onClick={() => {
+                        removeTask(t.id)
+                    }}>x
+                    </button>
                 </li>)
             }
         </ul>
@@ -63,18 +85,14 @@ export function Todolist(props: PropsType) {
             </button>
         </div>
         <div>
-            <button onClick={() => { changeFilter("all") }}>
-                All
-            </button>
-            <button onClick={() => { changeFilter("active") }}>
-                Active
-            </button>
-            <button onClick={() => { changeFilter("completed") }}>
-                Completed
-            </button>
-            <button onClick={() => { changeFilter("first three tasks") }}>
-                First three tasks
-            </button>
+            <Button callBackButton={() => filterButtonsHandler("all")}  name={ 'all'}/>
+            <Button callBackButton={() => filterButtonsHandler("active")}  name={ 'active'}/>
+            <Button callBackButton={() => filterButtonsHandler("completed")}  name={ 'completed'}/>
+            <Button callBackButton={() => filterButtonsHandler("first three tasks")}  name={ 'first three tasks'}/>
+
+            {/*<button onClick={() => filterButtonsHandler("all")}>*/}
+            {/*    All*/}
+            {/*</button>*/}
         </div>
     </div>
 }
