@@ -1,11 +1,11 @@
-import React, { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
+import { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
 import { FilterValuesType } from '../../App';
 import Button from "../Button/Button";
 
 type TaskType = {
     id: string
     title: string
-    isDone: boolean
+    completed: boolean
 }
 
 type PropsType = {
@@ -25,10 +25,10 @@ export function Todolist(props: PropsType) {
     let tasksForTodolist = tasks;
 
     if (filter === "active") {
-        tasksForTodolist = tasks.filter(t => t.isDone === false);
+        tasksForTodolist = tasks.filter(t => t.completed === false);
     }
     if (filter === "completed") {
-        tasksForTodolist = tasks.filter(t => t.isDone === true);
+        tasksForTodolist = tasks.filter(t => t.completed === true);
     }
     if (filter === "first three tasks") {
         tasksForTodolist = tasks.filter((t, i) => i < 3);
@@ -59,6 +59,27 @@ export function Todolist(props: PropsType) {
         setFilter(filterValue);
     }
 
+    const mapTodos = tasksForTodolist.map(el => (
+        <li key={el.id}>
+            <input type="checkbox" checked={el.completed}/>
+            <span>{el.title}</span>
+            <button onClick={() => {
+                removeTask(el.id)
+            }}>x
+            </button>
+        </li>)
+    )
+
+// return (
+//     <div className="App">
+//         <button onClick={onClickHandler}>CLEAN POSTS</button>
+//         <ul>
+//             {mapTodos}
+//         </ul>
+//     </div>
+// );
+
+
     return <div>
         <h3>{title}</h3>
         <div>
@@ -70,14 +91,16 @@ export function Todolist(props: PropsType) {
         </div>
         <ul>
             {
-                tasksForTodolist.map(t => <li key={t.id}>
-                    <input type="checkbox" checked={t.isDone}/>
-                    <span>{t.title}</span>
-                    <button onClick={() => {
-                        removeTask(t.id)
-                    }}>x
-                    </button>
-                </li>)
+                // tasksForTodolist.map(t =>
+                //     <li key={t.id}>
+                //         <input type="checkbox" checked={t.isDone}/>
+                //         <span>{t.title}</span>
+                //         <button onClick={() => {
+                //             removeTask(t.id)
+                //         }}>x
+                //         </button>
+                //     </li>)
+                mapTodos
             }
         </ul>
         <div>
@@ -85,10 +108,10 @@ export function Todolist(props: PropsType) {
             </button>
         </div>
         <div>
-            <Button callBackButton={() => filterButtonsHandler("all")}  name={ 'all'}/>
-            <Button callBackButton={() => filterButtonsHandler("active")}  name={ 'active'}/>
-            <Button callBackButton={() => filterButtonsHandler("completed")}  name={ 'completed'}/>
-            <Button callBackButton={() => filterButtonsHandler("first three tasks")}  name={ 'first three tasks'}/>
+            <Button callBackButton={() => filterButtonsHandler("all")} name={'all'}/>
+            <Button callBackButton={() => filterButtonsHandler("active")} name={'active'}/>
+            <Button callBackButton={() => filterButtonsHandler("completed")} name={'completed'}/>
+            <Button callBackButton={() => filterButtonsHandler("first three tasks")} name={'first three tasks'}/>
 
             {/*<button onClick={() => filterButtonsHandler("all")}>*/}
             {/*    All*/}

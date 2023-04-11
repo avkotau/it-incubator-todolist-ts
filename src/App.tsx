@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { Todolist } from './components/TodoList/Todolist';
 import { v4 } from "uuid";
+import axios from "axios";
 
 export type FilterValuesType = "all" | "active" | "completed" | "first three tasks";
 
@@ -29,13 +30,22 @@ export type FilterValuesType = "all" | "active" | "completed" | "first three tas
 function App() {
 
     let [tasks, setTasks] = useState([
-        {id: v4(), title: "HTML&CSS", isDone: true},
-        {id: v4(), title: "JS", isDone: true},
-        {id: v4(), title: "ReactJS", isDone: false},
-        {id: v4(), title: "Rest API", isDone: false},
-        {id: v4(), title: "GraphQL", isDone: false},
+        // {id: v4(), title: "HTML&CSS", completed: true},
+        // {id: v4(), title: "JS", completed: true},
+        // {id: v4(), title: "ReactJS", completed: false},
+        // {id: v4(), title: "Rest API", completed: false},
+        // {id: v4(), title: "GraphQL", completed: false},
     ]);
 
+
+    useEffect(() => {
+        axios.get('https://jsonplaceholder.typicode.com/todos')
+            .then((res) => {
+                setTasks(res.data)
+
+            })
+    },[])
+    console.log(tasks)
 
 
     function removeTask(id: string) {
@@ -49,7 +59,7 @@ function App() {
 
     const addTask = (task: string) => {
         if (task.trim().length > 0) {
-            setTasks([{id: v4() as string, title: task, isDone: true}, ...tasks]);
+            setTasks([{id: v4() as string, title: task, completed: true}, ...tasks]);
         }
 
     }
