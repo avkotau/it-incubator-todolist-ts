@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { TaskType, Todolist } from './components/TodoList/Todolist';
-import { v4 } from "uuid";
+import { v1 } from "uuid";
 import axios from "axios";
 
 function App(): JSX.Element {
@@ -30,7 +30,7 @@ function App(): JSX.Element {
     const addTask = (task: string) => {
 
         if (task.trim().length > 0) {
-            setTasks([{id: v4() as string, title: task, completed: true}, ...tasks]);
+            setTasks([{id: v1() as string, title: task, completed: true}, ...tasks]);
         }
     }
 
