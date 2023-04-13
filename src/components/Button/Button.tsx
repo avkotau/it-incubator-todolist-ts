@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilterValuesType } from "../../App";
+import { FilterValuesType } from "../TodoList/Todolist";
 
 type ButtonType = {
     name: FilterValuesType | '+'
@@ -7,7 +7,7 @@ type ButtonType = {
 }
 
 const Button = (props: ButtonType) => {
-    const { name, callBackButton} = props
+    const {name, callBackButton} = props
 
     const onClickHandler = () => {
         callBackButton()
