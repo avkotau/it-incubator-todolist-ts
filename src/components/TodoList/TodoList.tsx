@@ -71,7 +71,6 @@ export const TodoList: React.FC<PropsType> = (props) =>  {
     }
 
     const onClickCheckboxHandle = (id: string, event: boolean) => {
-
         props.clickCheckbox(id, event)
     }
 
