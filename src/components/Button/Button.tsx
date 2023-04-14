@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilterValuesType } from "../TodoList/Todolist";
+import { FilterValuesType } from "../TodoList/TodoList";
 
 type ButtonType = {
     name: FilterValuesType | '+'

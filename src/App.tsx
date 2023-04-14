@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { ChangeEventHandler, MouseEventHandler, useEffect, useState } from 'react';
 import './App.css';
-import { TaskType, Todolist } from './components/TodoList/Todolist';
+import { TaskType, TodoList } from './components/TodoList/TodoList';
 import { v1 } from "uuid";
 import axios from "axios";
 
 function App(): JSX.Element {
 
     let [tasks, setTasks] = useState<TaskType[]>([
-        // {id: '', title: "", completed: true},
+        // {id: '1', title: "Html", completed: true},
+        // {id: '2', title: "Css", completed: true},
+        // {id: '3', title: "Redux", completed: true},
     ]);
 
     useEffect(() => {
@@ -34,13 +36,25 @@ function App(): JSX.Element {
         }
     }
 
+    const clickCheckbox = (newId: string, e: boolean) => {
+        // console.log(newId, e)
+
+        //request server  update task id status
+
+        // ok
+
+        // if ok
+        setTasks([...tasks.map(t => t.id === newId ? {...t, completed: e} : t)])
+    }
+
     return (
         <div className="App">
-            <Todolist title="What to learn"
+            <TodoList title="What to learn"
                       tasks={tasks}
                       removeTask={removeTask}
                       deleteAllTasks={deleteAllTasks}
                       addTask={addTask}
+                      clickCheckbox={clickCheckbox}
             />
         </div>
     );
