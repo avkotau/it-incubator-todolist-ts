@@ -1,8 +1,6 @@
-import { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler, useState } from 'react';
+import React, { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
 import Button from "../Button/Button";
-
-// @ts-ignore
-import styles from './TodoList.module.css'
+import styles from "./TodoList.module.css";
 
 export type FilterValuesType = "all" | "active" | "completed" | "first three tasks";
 
@@ -21,7 +19,7 @@ type PropsType = {
     clickCheckbox: (id: string, event: boolean) => void
 }
 
-export function TodoList(props: PropsType) {
+export const TodoList: React.FC<PropsType> = (props) =>  {
     const {title, tasks, deleteAllTasks, removeTask, addTask} = props
     const [inputText, setInputText] = useState('');
 
@@ -98,7 +96,7 @@ export function TodoList(props: PropsType) {
             />
             <Button callBackButton={addTaskHandle} name={'+'}/>
         </div>
-        <div>{error && error}</div>
+        <div className={styles.errorMessage}>{!!error && error}</div>
         <div>
             <button onClick={deleteAllTasks}>delete</button>
         </div>
