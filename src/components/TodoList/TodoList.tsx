@@ -50,7 +50,6 @@ export const TodoList: React.FC<PropsType> = (props) => {
     let tasksForTodolist = filteredTasks();
 
     const onChangeInputHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
-
         setInputText(e.currentTarget.value);
     }
 
