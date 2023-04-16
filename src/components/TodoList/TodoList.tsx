@@ -19,7 +19,7 @@ type PropsType = {
     clickCheckbox: (id: string, event: boolean) => void
 }
 
-export const TodoList: React.FC<PropsType> = (props) =>  {
+export const TodoList: React.FC<PropsType> = (props) => {
     const {title, tasks, deleteAllTasks, removeTask, addTask} = props
     const [inputText, setInputText] = useState('');
 
@@ -27,15 +27,16 @@ export const TodoList: React.FC<PropsType> = (props) =>  {
 
     const [filter, setFilter] = useState<FilterValuesType>("all");
 
+
     const filteredTasks = () => {
         let tasksForTodolist;
 
         switch (filter) {
             case "active":
-                tasksForTodolist = tasks.filter(t => t.completed === false);
+                tasksForTodolist = tasks.filter(t => !t.completed);
                 break;
             case "completed":
-                tasksForTodolist = tasks.filter(t => t.completed === true);
+                tasksForTodolist = tasks.filter(t => t.completed);
                 break;
             case "first three tasks":
                 tasksForTodolist = tasks.filter((t, i) => i < 3);
@@ -68,6 +69,7 @@ export const TodoList: React.FC<PropsType> = (props) =>  {
 
     const filterButtonsHandler = (filterValue: FilterValuesType) => {
         setFilter(filterValue);
+
     }
 
     const onClickCheckboxHandle = (id: string, event: boolean) => {
@@ -75,8 +77,9 @@ export const TodoList: React.FC<PropsType> = (props) =>  {
     }
 
     const mapTodos = tasksForTodolist.map(el => (
-        <li key={el.id + el.title}>
-            <input type="checkbox" checked={el.completed} onChange={(event) => onClickCheckboxHandle(el.id, event.currentTarget.checked)}/>
+        <li key={el.id + el.title} className={el.completed ? styles.isDone : ''}>
+            <input type="checkbox" checked={el.completed}
+                   onChange={(event) => onClickCheckboxHandle(el.id, event.currentTarget.checked)}/>
             <span>{el.title}</span>
             <button onClick={() => {
                 removeTask(el.id)
@@ -91,7 +94,7 @@ export const TodoList: React.FC<PropsType> = (props) =>  {
             <input value={inputText}
                    onChange={onChangeInputHandle}
                    onKeyPress={onKeyPressInputHandler}
-                   className={error && styles.error}
+                   className={error ? styles.error : ''}
             />
             <Button callBackButton={addTaskHandle} name={'+'}/>
         </div>
@@ -100,10 +103,11 @@ export const TodoList: React.FC<PropsType> = (props) =>  {
             <button onClick={deleteAllTasks}>delete</button>
         </div>
         <div>
-            <Button callBackButton={() => filterButtonsHandler("all")} name={'all'}/>
-            <Button callBackButton={() => filterButtonsHandler("active")} name={'active'}/>
-            <Button callBackButton={() => filterButtonsHandler("completed")} name={'completed'}/>
-            <Button callBackButton={() => filterButtonsHandler("first three tasks")} name={'first three tasks'}/>
+            <Button bntActive={filter === 'all'} callBackButton={() => filterButtonsHandler("all")} name={'all'}/>
+            <Button bntActive={filter === 'active'} callBackButton={() => filterButtonsHandler("active")} name={'active'}/>
+            <Button bntActive={filter === 'completed'} callBackButton={() => filterButtonsHandler("completed")} name={'completed'}/>
+            <Button bntActive={filter === 'first three tasks'} callBackButton={() => filterButtonsHandler("first three tasks")}
+                    name={'first three tasks'}/>
         </div>
         <ul>
             {mapTodos}

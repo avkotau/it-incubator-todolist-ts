@@ -5,3 +5,11 @@
 .errorMessage {
     color: red;
 }
+
+.colorActiveBtn {
+    background-color: green;
+}
+
+.isDone {
+    opacity: 0.5;
+}
