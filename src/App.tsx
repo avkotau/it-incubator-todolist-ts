@@ -38,7 +38,6 @@ function App(): JSX.Element {
         {id: todoListId_2, title: 'What to buy', filter: 'all'}
     ]);
 
-
     let [tasks, setTasks] = useState<TasksStateType>({
         [todoListId_1]: [
             {id: v1(), title: "Html", completed: true},
