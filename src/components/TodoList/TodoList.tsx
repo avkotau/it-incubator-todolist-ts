@@ -1,26 +1,22 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
 import Button from "../Button/Button";
 import styles from "./TodoList.module.css";
+import { FilterValuesType, TaskType } from "../../App";
 
-export type FilterValuesType = "all" | "active" | "completed" | "first three tasks";
 
-export type TaskType = {
-    id: string
-    title: string
-    completed: boolean
-}
+
 
 type PropsType = {
     title: string
     tasks: Array<TaskType>
     removeTask: (taskId: string) => void
-    deleteAllTasks: () => void
+    removeTodoList?: () => void // refactor
     addTask: (textInput: string) => void
-    clickCheckbox: (id: string, event: boolean) => void
+    changeTaskStatus: (id: string, event: boolean) => void
 }
 
 export const TodoList: React.FC<PropsType> = (props) => {
-    const {title, tasks, deleteAllTasks, removeTask, addTask} = props
+    const {title, tasks, removeTodoList, removeTask, addTask} = props
     const [inputText, setInputText] = useState('');
 
     const [error, setError] = useState<string | null>('');
@@ -72,7 +68,7 @@ export const TodoList: React.FC<PropsType> = (props) => {
     }
 
     const onClickCheckboxHandle = (id: string, event: boolean) => {
-        props.clickCheckbox(id, event)
+        props.changeTaskStatus(id, event)
     }
 
     const mapTodos = tasksForTodolist.map(el => (
@@ -99,7 +95,7 @@ export const TodoList: React.FC<PropsType> = (props) => {
         </div>
         <div className={styles.errorMessage}>{!!error && error}</div>
         <div>
-            <button onClick={deleteAllTasks}>delete</button>
+            <button onClick={removeTodoList}>delete</button>
         </div>
         <div>
             <Button bntActive={filter === 'all'} callBackButton={() => filterButtonsHandler("all")} name={'all'}/>
