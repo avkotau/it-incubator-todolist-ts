@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilterValuesType } from "../TodoList/TodoList";
+import { FilterValuesType } from "../../App";
 import styles from '../TodoList/TodoList.module.css'
 
 type ButtonType = {
