@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { TodoList } from './components/TodoList/TodoList';
 import { v1 } from "uuid";
-import axios from "axios";
 import AddItemForm from "./components/AddItemForm/AddItemForm";
 
 export type FilterValuesType = "all" | "active" | "completed" | "first three tasks";
