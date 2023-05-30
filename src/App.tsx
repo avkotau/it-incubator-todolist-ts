@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { TodoList } from './components/TodoList/TodoList';
 import { v1 } from "uuid";
 import axios from "axios";
+import AddItemForm from "./components/AddItemForm/AddItemForm";
 
 export type FilterValuesType = "all" | "active" | "completed" | "first three tasks";
 
@@ -26,13 +27,6 @@ function App(): JSX.Element {
     let todoListId_1 = v1();
     let todoListId_2 = v1();
 
-    // let [tasks, setTasks] = useState<TaskType[]>([
-    //
-    //     {id: v1(), title: "Html", completed: true},
-    //     {id: v1(), title: "Css", completed: true},
-    //     {id: v1(), title: "Redux", completed: true},
-    // ]);
-
     let [todoLists, setTodoLists] = useState<TodoListsType[]>([
         {id: todoListId_1, title: 'What to learn', filter: 'all'},
         {id: todoListId_2, title: 'What to buy', filter: 'all'}
@@ -51,24 +45,6 @@ function App(): JSX.Element {
         ]
     });
 
-    // const [filter, setFilter] = useState<FilterValuesType>("all");
-
-    // let todoList_1 = {
-    //     [todoListId_1]: [
-    //         {id: v1(), title: "Html", completed: true},
-    //         {id: v1(), title: "Css", completed: true},
-    //         {id: v1(), title: "Redux", completed: true},
-    //     ]
-    // }
-    //
-    // let todoList_2 = {
-    //     [todoListId_2]: [
-    //         {id: v1(), title: "Bread", completed: true},
-    //         {id: v1(), title: "Milk", completed: true},
-    //         {id: v1(), title: "Salt", completed: true},
-    //     ]
-    // }
-
     // useEffect(() => {
     //     axios.get('https://jsonplaceholder.typicode.com/todos')
     //         .then((res) => {
@@ -78,12 +54,7 @@ function App(): JSX.Element {
     // }, [])
 
     const removeTask = (id: string, todoListId: string) => {
-
         setTasks({...tasks, [todoListId]: tasks[todoListId].filter(t => t.id !== id)})
-        // console.log({...tasks, [todoListId]: tasks[todoListId].filter(t => t.id !== id) })
-        //setTasks([tasks[todoListId]: tasks[todoListId].filter(t => t.id !== id)])
-        // let filteredTasks = tasks.filter(t => t.id !== id);
-        // setTasks(filteredTasks);
     }
 
     const removeTodoList = (todoListId: string) => {
@@ -101,7 +72,6 @@ function App(): JSX.Element {
                     ...tasks[todoListId]
                 ]
             })
-            //setTasks([{id: v1() as string, title: task, completed: true}, ...tasks]);
         }
     }
 
@@ -114,16 +84,10 @@ function App(): JSX.Element {
 
         // if ok
         setTasks({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === newId ? {...t, completed: e} : t)})
-        //setTasks([...tasks.map(t => t.id === newId ? {...t, completed: e} : t)])
     }
-
-    // const changeTodoListFilter = () => {
-    //  2023-03-28 1:05:26 Viktor
-    // }
 
     const changeTodoListFilter = (filterValue: FilterValuesType, todoListId: string) => {
         setTodoLists(todoLists.map(tl => tl.id === todoListId ? {...tl, filter: filterValue} : tl));
-        // setFilter(filterValue);
     }
 
     //UI
@@ -141,9 +105,18 @@ function App(): JSX.Element {
         }
     }
 
+    const addTodoLists = (inputText: string) => {
+        const newTodoListId = v1();
+        // const newTasks =  {id: newTodoListId, title: 'inputText', completed: true}
+        const newTodoList: TodoListsType = {id: newTodoListId, title: inputText, filter: 'all'}
+        setTodoLists([newTodoList, ...todoLists])
+        setTasks({...tasks, [newTodoListId]: []})
+
+    }
+
     const todoListsComponents = todoLists.map(tl => {
         let tasksForRender: TaskType[] = getFilteredTasksForRender(tasks[tl.id], tl.filter)
-
+        // console.log('tasksForRender',tasksForRender)
         return (
             <TodoList
                 key={tl.id}
@@ -165,8 +138,11 @@ function App(): JSX.Element {
 
     return (
         <div className="App">
+            <AddItemForm callBackAddTask={addTodoLists}/>
             {todoListsComponents}
         </div>
+
+
     );
 }
 
