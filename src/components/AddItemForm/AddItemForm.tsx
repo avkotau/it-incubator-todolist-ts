@@ -24,7 +24,6 @@ const AddItemForm: React.FC<AddItemFormType> = ({
             setError('Error')
         } else {
             callBackAddTask(inputText.trim())
-
             setInputText('')
             setError('')
         }

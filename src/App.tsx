@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { TodoList } from './components/TodoList/TodoList';
 import { v1 } from "uuid";
@@ -86,7 +86,9 @@ function App(): JSX.Element {
     }
 
     const changeTodoListFilter = (filterValue: FilterValuesType, todoListId: string) => {
-        setTodoLists(todoLists.map(tl => tl.id === todoListId ? {...tl, filter: filterValue} : tl));
+        setTodoLists(todoLists.map(tl => tl.id === todoListId
+            ? {...tl, filter: filterValue}
+            : tl));
     }
 
     //UI
@@ -106,11 +108,29 @@ function App(): JSX.Element {
 
     const addTodoLists = (inputText: string) => {
         const newTodoListId = v1();
-        // const newTasks =  {id: newTodoListId, title: 'inputText', completed: true}
         const newTodoList: TodoListsType = {id: newTodoListId, title: inputText, filter: 'all'}
         setTodoLists([newTodoList, ...todoLists])
         setTasks({...tasks, [newTodoListId]: []})
 
+    }
+
+    const updateTask = (todoListId: string, taskId: string, updateTitle: string) => {
+        setTasks({
+            ...tasks,
+            [todoListId]: tasks[todoListId].map(el => el.id === taskId
+                ? {...el, title: updateTitle}
+                : el)
+        })
+
+    }
+
+
+    const updateTodoListTitle = (todoListId: string, updateTitle: string) => {
+
+        setTodoLists(todoLists.map(tl => tl.id === todoListId
+            ? {...tl, title: updateTitle}
+            : tl
+        ))
     }
 
     const todoListsComponents = todoLists.map(tl => {
@@ -122,14 +142,14 @@ function App(): JSX.Element {
                 todoListId={tl.id}
                 title={tl.title}
                 filter={tl.filter}
-
                 changeTodoListFilter={changeTodoListFilter}
                 tasks={tasksForRender}
                 removeTask={removeTask}
                 removeTodoList={removeTodoList}
                 addTask={addTask}
                 changeTaskStatus={changeTaskStatus}
-
+                updateTask={updateTask}
+                updateTodoListTitle={updateTodoListTitle}
             />
         )
     })
