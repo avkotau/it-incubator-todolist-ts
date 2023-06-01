@@ -1,12 +1,12 @@
 import styles from "../TodoList/TodoList.module.css";
-import Button from "../Button/Button";
+// import Button from "../Button/Button";
 import React, { ChangeEventHandler, KeyboardEventHandler, useState } from "react";
+import Button from "@mui/material/Button";
 
 
 type AddItemFormType = {
     callBackAddTask: (inputText: string) => void
 }
-
 
 const AddItemForm: React.FC<AddItemFormType> = ({
     callBackAddTask,
@@ -39,7 +39,20 @@ const AddItemForm: React.FC<AddItemFormType> = ({
                    onKeyPress={onKeyPressInputHandler}
                    className={error ? styles.error : ''}
             />
-            <Button callBackButton={addTaskHandle} name={'+'}/>
+            <Button
+                style={{
+                    maxWidth: '30px',
+                    maxHeight: '30px',
+                    minWidth: '30px',
+                    minHeight: '30px',
+                    backgroundColor: 'black'
+                }}
+                variant={'contained'}
+                onClick={addTaskHandle}
+                // name={'+'}
+            >+</Button>
+
+            {/*<Button callBackButton={addTaskHandle} name={'+'}/>*/}
         </div>
     )
 
