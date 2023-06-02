@@ -3,8 +3,11 @@ import './App.css';
 import { TodoList } from './components/TodoList/TodoList';
 import { v1 } from "uuid";
 import AddItemForm from "./components/AddItemForm/AddItemForm";
+import ButtonAppBar from "./components/ ButtonAppBar/ButtonAppBar";
+import Container from '@mui/material/Container';
+import { Grid, Paper } from "@mui/material";
 
-export type FilterValuesType = "all" | "active" | "completed" | "first three tasks";
+export type FilterValuesType = "all" | "active" | "completed" | "first three tasks" | "delete";
 
 export type TaskType = {
     id: string
@@ -135,32 +138,42 @@ function App(): JSX.Element {
 
     const todoListsComponents = todoLists.map(tl => {
         let tasksForRender: TaskType[] = getFilteredTasksForRender(tasks[tl.id], tl.filter)
-        // console.log('tasksForRender',tasksForRender)
+
         return (
-            <TodoList
-                key={tl.id}
-                todoListId={tl.id}
-                title={tl.title}
-                filter={tl.filter}
-                changeTodoListFilter={changeTodoListFilter}
-                tasks={tasksForRender}
-                removeTask={removeTask}
-                removeTodoList={removeTodoList}
-                addTask={addTask}
-                changeTaskStatus={changeTaskStatus}
-                updateTask={updateTask}
-                updateTodoListTitle={updateTodoListTitle}
-            />
+            <Grid item columnSpacing={3} key={tl.id}>
+                <Paper elevation={5} style={{padding: 10}}>
+                    <TodoList
+                        key={tl.id}
+                        todoListId={tl.id}
+                        title={tl.title}
+                        filter={tl.filter}
+                        changeTodoListFilter={changeTodoListFilter}
+                        tasks={tasksForRender}
+                        removeTask={removeTask}
+                        removeTodoList={removeTodoList}
+                        addTask={addTask}
+                        changeTaskStatus={changeTaskStatus}
+                        updateTask={updateTask}
+                        updateTodoListTitle={updateTodoListTitle}
+                    />
+                </Paper>
+            </Grid>
         )
     })
 
 
     return (
         <div className="App">
-            <AddItemForm callBackAddTask={addTodoLists}/>
-            {todoListsComponents}
+            <ButtonAppBar/>
+            <Container fixed>
+                <Grid container columnSpacing={3} style={{padding: 25}}>
+                    <AddItemForm callBackAddTask={addTodoLists}/>
+                </Grid>
+                <Grid container columnSpacing={3}>
+                    {todoListsComponents}
+                </Grid>
+            </Container>
         </div>
-
 
     );
 }

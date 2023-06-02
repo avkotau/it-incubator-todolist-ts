@@ -1,7 +1,7 @@
-import styles from "../TodoList/TodoList.module.css";
-// import Button from "../Button/Button";
 import React, { ChangeEventHandler, KeyboardEventHandler, useState } from "react";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+
 
 
 type AddItemFormType = {
@@ -34,18 +34,30 @@ const AddItemForm: React.FC<AddItemFormType> = ({
     }
     return (
         <div>
-            <input value={inputText}
-                   onChange={onChangeInputHandle}
-                   onKeyPress={onKeyPressInputHandler}
-                   className={error ? styles.error : ''}
+            {/*<input*/}
+            {/*    value={inputText}*/}
+            {/*       onChange={onChangeInputHandle}*/}
+            {/*       onKeyPress={onKeyPressInputHandler}*/}
+            {/*       className={error ? styles.error : ''}*/}
+            {/*/>*/}
+
+            <TextField
+                error={!!error}
+                size={'small'}
+                id="outlined-basic"
+                label={error ? 'Title is required' : 'Type out something'}
+                variant="outlined"
+                value={inputText}
+                onChange={onChangeInputHandle}
+                onKeyPress={onKeyPressInputHandler}
+                // className={error ? styles.error : ''}
             />
             <Button
                 style={{
-                    maxWidth: '30px',
-                    maxHeight: '30px',
-                    minWidth: '30px',
-                    minHeight: '30px',
-                    backgroundColor: 'black'
+                    maxWidth: '39px',
+                    maxHeight: '39px',
+                    minWidth: '39px',
+                    minHeight: '39px',
                 }}
                 variant={'contained'}
                 onClick={addTaskHandle}

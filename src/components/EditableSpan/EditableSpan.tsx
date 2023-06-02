@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, useState } from "react";
 
 
+
 type PropsType = {
     oldTitle: string
     callBackAddTask: (updateTitle: string) => void
@@ -31,10 +32,13 @@ const EditableSpan: React.FC<PropsType> = ({
 
     return (
         edit
-            ? <input type={'text'} value={updateTitle}
-                     onChange={updateTitleHandler}
-                     onBlur={toggleEditHandler}
-                     autoFocus/>
+            ? <input
+                type={'text'}
+                value={updateTitle}
+                onChange={updateTitleHandler}
+                onBlur={toggleEditHandler}
+                autoFocus
+            />
             : <span onDoubleClick={toggleEditHandler}>{oldTitle}</span>
     )
 }

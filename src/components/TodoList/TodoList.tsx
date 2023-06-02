@@ -1,9 +1,13 @@
 import React from 'react';
-import Button from "../Button/Button";
+// import Button from "../Button/Button";
 import styles from "./TodoList.module.css";
 import { FilterValuesType, TaskType } from "../../App";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import EditableSpan from "../EditableSpan/EditableSpan";
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Checkbox from '@mui/material/Checkbox';
 
 
 type PropsType = {
@@ -40,16 +44,17 @@ export const TodoList: React.FC<PropsType> = (props) => {
 
             return (
                 <li key={el.id + el.title} className={el.completed ? styles.isDone : ''}>
-                    <input type="checkbox" checked={el.completed}
-                           onChange={(event) =>
-                               onClickCheckboxHandle(el.id, event.currentTarget.checked)}/>
-
+                   <Checkbox checked={el.completed}  onChange={(event) =>
+                        onClickCheckboxHandle(el.id, event.currentTarget.checked)}/>
                     <EditableSpan oldTitle={el.title}
                                   callBackAddTask={(updateTitle) => updateTaskHandler(el.id, updateTitle)}/>
-                    <button onClick={() => {
-                        removeTask(el.id, todoListId)
-                    }}>x
-                    </button>
+
+                    <IconButton aria-label="delete" size="small"
+                                onClick={() => {
+                                    removeTask(el.id, todoListId)
+                                }}>
+                        <DeleteIcon/>
+                    </IconButton>
                 </li>)
         }
     )
@@ -63,26 +68,24 @@ export const TodoList: React.FC<PropsType> = (props) => {
         <EditableSpan oldTitle={title}
                       callBackAddTask={(updateTitle) => updateTodoListTitle(todoListId, updateTitle)}/>
 
+        <IconButton aria-label="delete" size="small"
+                    onClick={() => removeTodoList ? removeTodoList(todoListId) : ''}>
+            <DeleteIcon/>
+        </IconButton>
+
         <div>
             <AddItemForm callBackAddTask={addTaskHandler}/>
         </div>
-        <div className={styles.errorMessage}>{"!!error && error"}</div>
+
         <div>
-            <button onClick={() => removeTodoList ? removeTodoList(todoListId) : ''}>delete TodoList</button>
-        </div>
-        <div>
-            <Button bntActive={filter === 'all'} callBackButton={() =>
-                changeTodoListFilter("all", todoListId)}
-                    name={'all'}/>
-            <Button bntActive={filter === 'active'} callBackButton={() =>
-                changeTodoListFilter("active", todoListId)}
-                    name={'active'}/>
-            <Button bntActive={filter === 'completed'}
-                    callBackButton={() => changeTodoListFilter("completed", todoListId)}
-                    name={'completed'}/>
-            <Button bntActive={filter === 'first three tasks'}
-                    callBackButton={() => changeTodoListFilter("first three tasks", todoListId)}
-                    name={'first three tasks'}/>
+            <Button variant={filter === 'all' ? 'contained' : "outlined"}
+                    onClick={() => changeTodoListFilter("all", todoListId)}>all</Button>
+            <Button variant={filter === 'active' ? 'contained' : "outlined"}
+                    onClick={() => changeTodoListFilter("active", todoListId)}>active</Button>
+            <Button variant={filter === 'completed' ? 'contained' : "outlined"}
+                    onClick={() => changeTodoListFilter("completed", todoListId)}>completed</Button>
+            <Button variant={filter === 'first three tasks' ? 'contained' : "outlined"}
+                    onClick={() => changeTodoListFilter("first three tasks", todoListId)}>first three tasks</Button>
         </div>
         <ul>
             {mapTodos}
