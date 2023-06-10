@@ -1,5 +1,4 @@
 import React from 'react';
-// import Button from "../Button/Button";
 import styles from "./TodoList.module.css";
 import { FilterValuesType, TaskType } from "../../App";
 import AddItemForm from "../AddItemForm/AddItemForm";
@@ -7,7 +6,7 @@ import EditableSpan from "../EditableSpan/EditableSpan";
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Checkbox from '@mui/material/Checkbox';
+import { CheckboxContainer } from "../CheckboxContainer/CheckboxContainer";
 
 
 type PropsType = {
@@ -44,8 +43,8 @@ export const TodoList: React.FC<PropsType> = (props) => {
 
             return (
                 <li key={el.id + el.title} className={el.completed ? styles.isDone : ''}>
-                   <Checkbox checked={el.completed}  onChange={(event) =>
-                        onClickCheckboxHandle(el.id, event.currentTarget.checked)}/>
+                   {/* Checkbox for marking a task as completed or incomplete.*/}
+                    <CheckboxContainer completed={el.completed} onClickCheckboxHandle={( event) => onClickCheckboxHandle(el.id, event)}/>
                     <EditableSpan oldTitle={el.title}
                                   callBackAddTask={(updateTitle) => updateTaskHandler(el.id, updateTitle)}/>
 
