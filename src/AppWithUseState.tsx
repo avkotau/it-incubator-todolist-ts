@@ -3,7 +3,7 @@ import './App.css';
 import { TodoList } from './components/TodoList/TodoList';
 import { v1 } from "uuid";
 import AddItemForm from "./components/AddItemForm/AddItemForm";
-import ButtonAppBar from "./components/ ButtonAppBar/ButtonAppBar";
+import ButtonAppBar from "./components/ButtonAppBar/ButtonAppBar";
 import Container from '@mui/material/Container';
 import { Grid, Paper } from "@mui/material";
 
@@ -25,7 +25,7 @@ export type TasksStateType = {
     [todoListId: string]: TaskType[]
 }
 
-function App(): JSX.Element {
+function AppWithUseState(): JSX.Element {
     let todoListId_1 = v1();
     let todoListId_2 = v1();
 
@@ -46,14 +46,6 @@ function App(): JSX.Element {
             {id: v1(), title: "Salt", completed: true},
         ]
     });
-
-    // useEffect(() => {
-    //     axios.get('https://jsonplaceholder.typicode.com/todos')
-    //         .then((res) => {
-    //             setTasks(res.data)
-    //
-    //         })
-    // }, [])
 
     const removeTask = (id: string, todoListId: string) => {
         setTasks({...tasks, [todoListId]: tasks[todoListId].filter(t => t.id !== id)})
@@ -93,13 +85,6 @@ function App(): JSX.Element {
     }
 
     const changeTaskStatus = (newId: string, e: boolean, todoListId: string) => {
-        // console.log(newId, e)
-
-        //request server  update task id status
-
-        // ok
-
-        // if ok
         setTasks({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === newId ? {...t, completed: e} : t)})
     }
 
@@ -124,8 +109,6 @@ function App(): JSX.Element {
         }
     }
 
-
-
     const updateTask = (todoListId: string, taskId: string, updateTitle: string) => {
         setTasks({
             ...tasks,
@@ -135,9 +118,6 @@ function App(): JSX.Element {
         })
 
     }
-
-
-
 
     const todoListsComponents = todoLists.map(tl => {
         let tasksForRender: TaskType[] = getFilteredTasksForRender(tasks[tl.id], tl.filter)
@@ -164,7 +144,6 @@ function App(): JSX.Element {
         )
     })
 
-
     return (
         <div className="App">
             <ButtonAppBar/>
@@ -181,4 +160,4 @@ function App(): JSX.Element {
     );
 }
 
-export default App;
+export default AppWithUseState;
