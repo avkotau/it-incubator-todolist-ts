@@ -9,14 +9,23 @@ import {
 } from "./todolist-reducer";
 
 
-test.skip('correct todolist should be remove', () => {
-    let todoListId_1 = v1();
-    let todoListId_2 = v1();
+let todoListId_1: string;
+let todoListId_2: string;
 
-    const startState: TodoListsType[] = [
+let startState: Array<TodoListsType>
+
+beforeEach(() => {
+    todoListId_1 = v1();
+    todoListId_2 = v1();
+
+    startState = [
         {id: todoListId_1, title: 'What to learn', filter: 'all'},
         {id: todoListId_2, title: 'What to buy', filter: 'all'}
     ];
+})
+
+test('correct todolist should be remove', () => {
+
 
     const endTodoListState = todolistReducer(
         startState,
@@ -30,14 +39,6 @@ test.skip('correct todolist should be remove', () => {
 
 test('correct todolist should be added', () => {
 
-    let todoListId_1 = v1();
-    let todoListId_2 = v1();
-
-    const startState: TodoListsType[] = [
-        {id: todoListId_1, title: 'What to learn', filter: 'all'},
-        {id: todoListId_2, title: 'What to buy', filter: 'all'}
-    ];
-
     const title = 'What to do'
 
     const endTodoListState = todolistReducer(
@@ -49,15 +50,7 @@ test('correct todolist should be added', () => {
     expect(endTodoListState[0].title).toBe(title)
 })
 
-test.skip('correct todolist should change title', () => {
-
-    let todoListId_1 = v1();
-    let todoListId_2 = v1();
-
-    const startState: TodoListsType[] = [
-        {id: todoListId_1, title: 'What to learn', filter: 'all'},
-        {id: todoListId_2, title: 'What to buy', filter: 'all'}
-    ];
+test('correct todolist should change title', () => {
 
     const title = 'Updated title'
 
@@ -70,15 +63,7 @@ test.skip('correct todolist should change title', () => {
     expect(endTodoListState[0].title).toBe(title)
 })
 
-test.skip('correct change todolist filter', () => {
-
-    let todoListId_1 = v1();
-    let todoListId_2 = v1();
-
-    const startState: TodoListsType[] = [
-        {id: todoListId_1, title: 'What to learn', filter: 'all'},
-        {id: todoListId_2, title: 'What to buy', filter: 'all'}
-    ];
+test('correct change todolist filter', () => {
 
     const filter = 'active'
 
