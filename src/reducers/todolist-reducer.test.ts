@@ -1,16 +1,12 @@
-import { useState } from "react";
 import { TodoListsType } from "../App";
 import { v1 } from "uuid";
 import {
-    addTodoListsAC,
+    addTodoListAC,
     changeTodoListFilterAC,
     removeTodoListAC,
     todolistReducer,
     updateTodoListTitleAC
 } from "./todolist-reducer";
-
-
-
 
 
 test.skip('correct todolist should be remove', () => {
@@ -46,7 +42,7 @@ test('correct todolist should be added', () => {
 
     const endTodoListState = todolistReducer(
         startState,
-        addTodoListsAC(title)
+        addTodoListAC(title)
     )
 
     expect(Object.keys(endTodoListState).length).toBe(3)
