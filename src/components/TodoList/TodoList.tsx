@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from "./TodoList.module.css";
-import { FilterValuesType, TaskType } from "../../App";
+import { FilterValuesType, TaskType } from "../../AppWithReducers";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import EditableSpan from "../EditableSpan/EditableSpan";
 import Button from '@mui/material/Button';
@@ -38,7 +38,7 @@ export const TodoList: React.FC<PropsType> = (props) => {
     const updateTaskHandler = (taskId: string, updateTitle: string) => {
         updateTask(todoListId, taskId, updateTitle)
     }
-
+//first render tasks ===  undefined
     const mapTodos = tasks.map(el => {
 
             return (

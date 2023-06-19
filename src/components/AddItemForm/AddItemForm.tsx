@@ -34,13 +34,6 @@ const AddItemForm: React.FC<AddItemFormType> = ({
     }
     return (
         <div>
-            {/*<input*/}
-            {/*    value={inputText}*/}
-            {/*       onChange={onChangeInputHandle}*/}
-            {/*       onKeyPress={onKeyPressInputHandler}*/}
-            {/*       className={error ? styles.error : ''}*/}
-            {/*/>*/}
-
             <TextField
                 error={!!error}
                 size={'small'}
@@ -61,10 +54,7 @@ const AddItemForm: React.FC<AddItemFormType> = ({
                 }}
                 variant={'contained'}
                 onClick={addTaskHandle}
-                // name={'+'}
             >+</Button>
-
-            {/*<Button callBackButton={addTaskHandle} name={'+'}/>*/}
         </div>
     )
 
