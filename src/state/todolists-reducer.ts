@@ -14,10 +14,14 @@ export type AddTodoListsACType = ReturnType<typeof addTodoListAC>
 type UpdateTodoListTitleACType = ReturnType<typeof updateTodoListTitleAC>
 type ChangeTodoListFilterACType = ReturnType<typeof changeTodoListFilterAC>
 
-export const todolistReducer = (state: TodoListsType[], action: TodolistActionsType): TodoListsType[] => {
+
+const initialState: TodoListsType[] = []
+
+export const todolistsReducer = (state = initialState, action: TodolistActionsType): TodoListsType[] => {
     switch (action.type) {
         case "REMOVE-TODOLIST":
             return state.filter(tl => tl.id !== action.payload.id)
+
         case "NEW-TODOLIST":
             const newTodoList: TodoListsType = {
                 id: action.payload.id, title: action.payload.title, filter: 'all'
@@ -32,7 +36,7 @@ export const todolistReducer = (state: TodoListsType[], action: TodolistActionsT
                 ? {...tl, filter: action.payload.filter}
                 : tl)
         default:
-            throw new Error('wrong type')
+            return state
     }
 }
 

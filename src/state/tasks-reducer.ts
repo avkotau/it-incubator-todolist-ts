@@ -1,6 +1,6 @@
 import { TasksStateType } from "../AppWithReducers";
 import { v1 } from "uuid";
-import { AddTodoListsACType, RemoveTodoListACType } from "./todolist-reducer";
+import { AddTodoListsACType, RemoveTodoListACType } from "./todolists-reducer";
 
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>
 type AddTaskACType = ReturnType<typeof addTaskAC>
@@ -14,8 +14,10 @@ export type TasksActionsType = RemoveTaskACType
     | AddTodoListsACType
     | RemoveTodoListACType
 
+const initialState: TasksStateType = {}
 
-export const tasksReducer = (state: TasksStateType, action: TasksActionsType): TasksStateType => {
+
+export const tasksReducer = (state = initialState, action: TasksActionsType): TasksStateType => {
     switch (action.type) {
         case "REMOVE-TASK":
             return {
@@ -42,7 +44,6 @@ export const tasksReducer = (state: TasksStateType, action: TasksActionsType): T
                 ]
             }
         case "CHANGE-TASK-TITLE" :
-
             return {
                 ...state,
                 [action.preload.todoListId]: [
@@ -61,9 +62,8 @@ export const tasksReducer = (state: TasksStateType, action: TasksActionsType): T
             return {
                 ...state
             }
-
         default:
-            throw new Error('wrong type')
+            return state
     }
 }
 

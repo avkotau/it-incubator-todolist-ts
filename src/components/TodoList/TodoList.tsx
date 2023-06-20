@@ -38,7 +38,7 @@ export const TodoList: React.FC<PropsType> = (props) => {
     const updateTaskHandler = (taskId: string, updateTitle: string) => {
         updateTask(todoListId, taskId, updateTitle)
     }
-//first render tasks ===  undefined
+
     const mapTodos = tasks.map(el => {
 
             return (
