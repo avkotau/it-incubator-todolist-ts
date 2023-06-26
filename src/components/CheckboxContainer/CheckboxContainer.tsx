@@ -10,6 +10,7 @@ export const CheckboxContainer: React.FC<CheckboxContainerType> = ({
     completed,
     onClickCheckboxHandle
 }) => {
+
   return (
       <Checkbox
           checked={completed}  onChange={(event) =>

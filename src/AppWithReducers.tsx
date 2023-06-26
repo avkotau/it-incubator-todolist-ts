@@ -21,7 +21,7 @@ import {
     tasksReducer
 } from "./state/tasks-reducer";
 
-import ButtonAppBar from "./components/ButtonAppBar/ButtonAppBar";
+import ButtonAppBar from "./components/Button/ButtonAppBar";
 import AddItemForm from "./components/AddItemForm/AddItemForm";
 import Container from "@mui/material/Container";
 
@@ -100,7 +100,7 @@ function AppWithReducers(): JSX.Element {
 
     //UI
     const getFilteredTasksForRender = (tasksList: TaskType[], filterValue: FilterValuesType) => {
-        console.log('tasksList', tasksList, 'filterValue', filterValue)
+
         switch (filterValue) {
             case "active":
                 return tasksList.filter(t => !t.completed);

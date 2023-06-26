@@ -3,7 +3,7 @@ import './App.css';
 import { TodoList } from './components/TodoList/TodoList';
 import { v1 } from "uuid";
 import AddItemForm from "./components/AddItemForm/AddItemForm";
-import ButtonAppBar from "./components/ButtonAppBar/ButtonAppBar";
+import ButtonAppBar from "./components/Button/ButtonAppBar";
 import Container from '@mui/material/Container';
 import { Grid, Paper } from "@mui/material";
 

@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, KeyboardEventHandler, useState } from "react";
+import React, { ChangeEventHandler, KeyboardEventHandler, memo, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
@@ -8,7 +8,7 @@ type AddItemFormType = {
     callBackAddTask: (inputText: string) => void
 }
 
-const AddItemForm: React.FC<AddItemFormType> = ({
+const AddItemForm: React.FC<AddItemFormType> = memo(({
     callBackAddTask,
 }) => {
 
@@ -18,8 +18,8 @@ const AddItemForm: React.FC<AddItemFormType> = ({
     const onChangeInputHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
         setInputText(e.currentTarget.value);
     }
-
     const addTaskHandle = () => {
+
         if (inputText.trim() === '') {
             setError('Error')
         } else {
@@ -30,7 +30,7 @@ const AddItemForm: React.FC<AddItemFormType> = ({
     }
 
     const onKeyPressInputHandler: KeyboardEventHandler<HTMLInputElement> = (e) => {
-        if (e.code === 'Enter') addTaskHandle()
+        if (e.code === 'Enter' || e.code === 'NumpadEnter') addTaskHandle()
     }
     return (
         <div>
@@ -43,7 +43,6 @@ const AddItemForm: React.FC<AddItemFormType> = ({
                 value={inputText}
                 onChange={onChangeInputHandle}
                 onKeyPress={onKeyPressInputHandler}
-                // className={error ? styles.error : ''}
             />
             <Button
                 style={{
@@ -58,6 +57,6 @@ const AddItemForm: React.FC<AddItemFormType> = ({
         </div>
     )
 
-}
+})
 
 export default AddItemForm
