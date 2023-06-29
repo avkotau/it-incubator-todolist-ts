@@ -75,6 +75,10 @@ export const TodoList: React.FC<PropsType> = memo((props) => {
     //     (taskId: string, completed: boolean) => changeTaskStatus(taskId, completed, todoListId),
     //     [changeTaskStatus, todoListId])
 
+    const updateTodoListTitleHandler = useCallback((updateTitle: string) => {
+        updateTodoListTitle(todoListId, updateTitle)
+    },[updateTodoListTitle, todoListId])
+
     const mapTodos = tasks.map(el => {
 
             return (
@@ -93,7 +97,7 @@ export const TodoList: React.FC<PropsType> = memo((props) => {
     return <div>
 
         <EditableSpan oldTitle={title}
-                      changeTaskTitle={(updateTitle) => updateTodoListTitle(todoListId, updateTitle)}/>
+                      changeTaskTitle={updateTodoListTitleHandler}/>
         <IconButton aria-label="delete" size="small"
                     onClick={removeTodoListHandler}>
             <DeleteIcon/>
