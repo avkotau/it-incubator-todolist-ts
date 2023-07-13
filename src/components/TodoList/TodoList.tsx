@@ -77,17 +77,17 @@ export const TodoList: React.FC<PropsType> = memo((props) => {
 
     const updateTodoListTitleHandler = useCallback((updateTitle: string) => {
         updateTodoListTitle(todoListId, updateTitle)
-    },[updateTodoListTitle, todoListId])
+    }, [updateTodoListTitle, todoListId])
 
     const mapTodos = tasks.map(el => {
 
             return (
-                <TaskComponentWithRedux key={el.id + el.title}
-                                        todoListId={todoListId}
-                                        taskId={el.id}
-                                        completed={el.completed}
-                                        oldTitle={el.title}
-
+                <TaskComponentWithRedux
+                    key={el.id + el.title}
+                    todoListId={todoListId}
+                    taskId={el.id}
+                    completed={el.completed}
+                    oldTitle={el.title}
                 />
             )
         }
@@ -104,7 +104,7 @@ export const TodoList: React.FC<PropsType> = memo((props) => {
         </IconButton>
 
         <div>
-            <AddItemForm callBackAddTask={addTaskHandler}/>
+            <AddItemForm addItem={addTaskHandler}/>
         </div>
 
         <div>

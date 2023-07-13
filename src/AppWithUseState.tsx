@@ -149,7 +149,7 @@ function AppWithUseState(): JSX.Element {
             <ButtonAppBar/>
             <Container fixed>
                 <Grid container columnSpacing={3} style={{padding: 25}}>
-                    <AddItemForm callBackAddTask={addTodoLists}/>
+                    <AddItemForm addItem={addTodoLists}/>
                 </Grid>
                 <Grid container columnSpacing={3}>
                     {todoListsComponents}

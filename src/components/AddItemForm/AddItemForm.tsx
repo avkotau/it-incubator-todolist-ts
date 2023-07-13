@@ -4,12 +4,12 @@ import TextField from "@mui/material/TextField";
 
 
 
-type AddItemFormType = {
-    callBackAddTask: (inputText: string) => void
+export type AddItemFormType = {
+    addItem: (inputText: string) => void
 }
 
 const AddItemForm: React.FC<AddItemFormType> = memo(({
-    callBackAddTask,
+    addItem,
 }) => {
 
     const [inputText, setInputText] = useState('');
@@ -23,7 +23,7 @@ const AddItemForm: React.FC<AddItemFormType> = memo(({
         if (inputText.trim() === '') {
             setError('Error')
         } else {
-            callBackAddTask(inputText.trim())
+            addItem(inputText.trim())
             setInputText('')
             setError('')
         }
