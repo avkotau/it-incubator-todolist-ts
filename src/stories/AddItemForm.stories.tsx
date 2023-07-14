@@ -4,6 +4,7 @@ import AddItemForm, { AddItemFormType } from "../components/AddItemForm/AddItemF
 import React, { ChangeEventHandler, FC, KeyboardEventHandler, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { action } from "@storybook/addon-actions";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof AddItemForm> = {
@@ -25,7 +26,7 @@ type Story = StoryObj<typeof AddItemForm>;
 
 export const AddItemFormStory: Story = {
     args: {
-        // addItem: action('Button clicked inside form')
+        addItem: action('Button clicked inside form')
     },
 };
 
@@ -80,8 +81,12 @@ export const AddItemFormComponent: FC<AddItemFormType> = ({addItem}) => {
 
 
 export const AddItemFormErrorStory: Story = {
-
-    render: (args) => <AddItemFormComponent addItem={args.addItem}/>
+    args: {
+        addItem: action('Button clicked inside form')
+    },
+    render: (args) => {
+        return <AddItemFormComponent addItem={args.addItem}/>
+    }
 };
 
 

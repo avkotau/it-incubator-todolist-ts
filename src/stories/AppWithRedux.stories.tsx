@@ -16,7 +16,4 @@ const meta: Meta<typeof AppWithRedux> = {
 export default meta;
 type Story = StoryObj<typeof AppWithRedux>;
 
-export const AppWithReduxStory: Story = {
-    // render: () => <Provider store={store}><AppWithRedux/></Provider>
-};
-//TaskComponentWithRedux
+export const AppWithReduxStory: Story = {};
